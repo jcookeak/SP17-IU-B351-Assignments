@@ -1,0 +1,197 @@
+% LaTeX Article Template - customizing header and footer
+\documentclass{article}
+
+\newtheorem{thm}{Theorem}
+
+% Set left margin - The default is 1 inch, so the following 
+% command sets a 1.25-inch left margin.
+\setlength{\oddsidemargin}{0.25in}
+
+% Set width of the text - What is left will be the right margin.
+% In this case, right margin is 8.5in - 1.25in - 6in = 1.25in.
+\setlength{\textwidth}{6in}
+
+% Set top margin - The default is 1 inch, so the following 
+% command sets a 0.75-inch top margin.
+\setlength{\topmargin}{-0.25in}
+
+% Set height of the header
+\setlength{\headheight}{0.3in}
+
+% Set vertical distance between the header and the text
+\setlength{\headsep}{0.2in}
+
+% Set height of the text
+\setlength{\textheight}{9in}
+
+% Set vertical distance between the text and the
+% bottom of footer
+\setlength{\footskip}{0.1in}
+
+% Set the beginning of a LaTeX document
+\usepackage{multirow}
+
+\usepackage{tikz}
+
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage{amssymb}
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\graphicspath{%
+    {converted_graphics/}% inserted by PCTeX
+    {/}% inserted by PCTeX
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\begin{document}\title{Homework $4$\\ Computer Science \\ B351 Spring 2017\\ Prof. M.M. Dalkilic}         % Enter your title between curly braces
+\author{Jonathon Cooke-Akaiwa}        % Enter your name between curly braces
+\date{\today}          % Enter your date or \today between curly braces
+\maketitle
+
+
+% Redefine "plain" pagestyle
+\makeatother     % `@' is restored as a "non-letter" character
+
+
+
+
+% Set to use the "plain" pagestyle
+\pagestyle{plain}
+
+All the work herein is mine.
+\section*{Homework Questions}
+\begin{enumerate}
+\item Convert the following logical sentences to clausal form:
+\begin{enumerate}
+\item $\exists\ y\ p(y) \vee [\exists\ y\ (q(y) \rightarrow (\exists\ x\ (p(x) \vee\ q(x,y,C)))]$ \newline
+$\exists\ y\ p(y) \vee [\exists\ y\ (\neg q(y) \vee (\exists\ x\ (p(x) \vee\ q(x,y,C)))]$ \newline
+$\exists\ y\ p(y) \vee [\exists\ z\ (\neg q(z) \vee (\exists\ x\ (p(x) \vee\ q(x,z,C)))]$ \newline
+$\exists\ y\ \exists\ z\ p(y) \vee (\neg q(z) \vee (\exists\ x\ (p(x) \vee\ q(x,z,C)))$ \newline
+$\exists\ y\ \exists\ z\ \exists\ x\ p(y) \vee (\neg q(z) \vee ((p(x) \vee\ q(x,z,C)))$ \newline
+$\exists\ z\ \exists\ x\ p(f()) \vee (\neg q(z) \vee ((p(x) \vee\ q(x,z,C)))$ \newline
+$\exists\ x\ p(f()) \vee (\neg q(g()) \vee ((p(x) \vee\ q(x,g(),C)))$ \newline
+$p(f()) \vee (\neg q(g()) \vee ((p(h()) \vee\ q(h(),g(),C)))$ \newline
+$p(f()), (\neg q(g()) , ((p(h()) ,\ q(h(),g(),C)))$ \newline
+$[p[f[]], [\neg, q,[g,[]]] , [p,[h,[]]] ,\ [q[h[],g[],C]]]$ \newline
+
+
+
+\item $\forall x \forall y \forall x\ d(x,y) \wedge d(y,z) \rightarrow d(x,z)$
+\item $( P \vee Q) \wedge (\neg P \rightarrow (Q \vee R))$ \newline
+	$( P \vee Q) \wedge (\neg \neg P \vee (Q \vee R))$ \newline
+	$( P \vee Q) \wedge (P \vee (Q \vee R))$ \newline
+	$[\wedge, [\vee, P, Q], [\vee, P , [\vee, Q, R]]]$
+	
+\end{enumerate}
+\item Let $\mathcal{U} = \{1,2,3\}$, $p = \{1,3\}$, $m = \{(1,1),(2,1),(3,2)\}$
+\begin{enumerate}
+\item Determine $\models \forall\ x\ \exists\ y\ m(x,y)$ \newline
+for x = 1 \newline
+(1,1) \newline
+for x = 2
+(2,1) \newline
+for x = 3
+(3,2) \newline
+Therefore $\models \forall\ x\ \exists\ y\ m(x,y)$ is valid.
+\item Determine $\models \forall\ y\ \exists\ x\ m(x,y)$ \newline
+for y = 1 \newline
+(1,1),(2,1) \newline
+for y = 2 \newline
+(3,2) \newline
+for y = 3 \newline
+\{\} \newline
+therefore $\models \forall\ y\ \exists\ x\ m(x,y)$ is not valid.
+\item Determine $\models \forall\ x\ \exists\ x\ m(x,x)$ \newline
+for x = 1 \newline
+(1,1) \newline
+for x = 2 \newline
+\{\} \newline
+Therefore $\models \forall\ x\ \exists\ x\ m(x,x)$ is not valid.
+\item Determine $\models \exists \ x\ \forall\ y\ m(x,y)$ \newline
+for x = 1 \newline
+(1,1) \newline
+for x = 2 \newline
+(2,1) \newline
+for x = 3 \newline
+(3,2) \newline
+Because none of these x values holds all there y values, $\models \exists \ x\ \forall\ y\ m(x,y)$ is not valid.
+\item Determine $\models \exists \ x\ \forall\ y\ m(y,x)$ \newline
+y = 1 \newline
+(1,1) \newline
+y = 2 \newline 
+(2,1) \newline 
+y = 3 \newline 
+(3,2) \newline
+Therefore $\models \exists \ x\ \forall\ y\ m(y,x)$ is valid.
+\item Determine $\models \exists \ x\ \forall\ x\ m(x,x)$ \newline
+for x = 1 \newline
+(1,1) \newline
+Therefore $\models \exists \ x\ \forall\ x\ m(x,x)$ is valid.
+
+\end{enumerate}
+\item You've decided to add a new quantifier: $M$ that takes one variable.  The syntax is $M\ x\ f(x)$ for some sentence $f$.  The meaning of $M\ x\ f(x)$ is that the number of times $\sigma(u,x) f(x)$ is true, where $\sigma(u,x)$ is substituting a value from the domain $u \in \mathcal{U}$ is at least 1.5 times more than when it is false.  We can assume $\mathcal{U}$ is finite too.  Use the model in the previous problem.
+\newline Let U = {1,2,3}, p = {1,3}, m = {(1,1),(2,1),(3,2)}
+\begin{enumerate}
+\item Determine $\models M x\ p(x)$
+\item Determine $\models \forall \ x\ M y \ m(y,x) \rightarrow p(x)$
+\end{enumerate}
+\item Ursala, Kaiser, and Shilah are dogs.  We know the following:
+\begin{enumerate}
+\item Ursala is silver.
+\item Shilah is gray and loves Kaiser.
+\item Kaiser is either gray or silver (but not both) and loves Ursala.
+\end{enumerate}
+What does this sentence mean? $\exists x \exists y (gray(x) \wedge silver(y) \wedge loves(x,y)$.  Use resolution refutation to prove this.
+\item Consider a robot that works in a mine -- it has to push some objects and not push others depending on a colored tag that is either green or red.  Here are the facts:
+\begin{itemize}
+\item If pushable objects are green, the non-pushable are red.
+\item All objects are either green or red.
+\item If there is a non-pushable object, the all pushable objects are green.
+\item Object 1, a cart, is pushable.
+\item Object 2, a pile of ore, is not pushable. 
+\end{itemize}
+Assume you're trying to prove that there is a red object. 
+\begin{itemize}
+\item Rewrite the statements into FOL (formal) and show their robotic equivalent (Python). \begin{itemize}
+\item If pushable objects are green, the non-pushable are red. \newline
+$(\exists x\ green(x) \wedge pushable(x)) \models (\exists y\ red(y) \wedge \neg pushable(y))$ \newline
+$[\models, [\exists, x, [\wedge,[green,[x]],[pushable,[x]]]] [\exists, y, [\wedge,[red,[x]],[\neg, [pushable,[x]]]]$
+\item All objects are either green or red. \newline
+$\forall x \ green(x) \vee red(x)$
+\item If there is a non-pushable object, the all pushable objects are green.
+\item Object 1, a cart, is pushable.
+\item Object 2, a pile of ore, is not pushable.
+\end{itemize}
+\item Convert to clausal form.
+\item Use refutation to prove the there is a red object, by working {\it only} on the robotic equivalent.  Clearly in indicate the process.
+\end{itemize}
+\item Assume $\mathcal{U} = \{Alex, Bob, Cathy\}$, $M(x)$ means $x$ is a mechanic, $N(x)$ means $x$ works at NASA, $W(x,y)$ means $x$ worked with $y$, $I(x,y,z)$ means $x$ introduced $y$ to $z$.  Write constants $A,B,C$ to mean $Alex, Bob, Cathy$, respectively. Write the following in FOL:
+\begin{itemize}
+\item Cathy is a mechanic. Example:  $M(C)$
+\item Bob is not a mechanic. \newline
+$\neg M(B)$
+\item Either Alex is a mechanic or Bob is, but I know Cathy works at NASA. \newline
+$(M(A) \vee M(B)) \wedge M(C)$
+\item Bob introduced Alex to Cathy, since Cathy works at NASA. \newline
+$N(C) \models I(B,A,C)$
+\item Someone is a mechanic, but everyone works at NASA.
+$\exists x \forall y M(x) \wedge N(y)$
+\item Bob introduced himself to Cathy. \newline
+$I(B,B,C)$
+\item Nobody has been introduced to Alex. \newline
+$\forall x \forall y \neg I(x,y,A)$ 
+\item If someone introduced Bob to Alex, then Bob isn't a mechanic. \newline
+$\exists x I(x,B,A) \models \neg M(B)$
+\item Nobody works with anyone here. \newline
+$\forall x \forall y \neg W(x,y)$
+\item Somebody works with Cathy, but it's not a mechanic, because Cathy works at NASA. \newline
+$\exists x W(x,C) \wedge \neg M(x) \models N(C)$
+\end{itemize}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,131 @@
+% LaTeX Article Template - customizing header and footer
+\documentclass{article}
+
+\newtheorem{thm}{Theorem}
+
+% Set left margin - The default is 1 inch, so the following 
+% command sets a 1.25-inch left margin.
+\setlength{\oddsidemargin}{0.25in}
+
+% Set width of the text - What is left will be the right margin.
+% In this case, right margin is 8.5in - 1.25in - 6in = 1.25in.
+\setlength{\textwidth}{6in}
+
+% Set top margin - The default is 1 inch, so the following 
+% command sets a 0.75-inch top margin.
+\setlength{\topmargin}{-0.25in}
+
+% Set height of the header
+\setlength{\headheight}{0.3in}
+
+% Set vertical distance between the header and the text
+\setlength{\headsep}{0.2in}
+
+% Set height of the text
+\setlength{\textheight}{9in}
+
+% Set vertical distance between the text and the
+% bottom of footer
+\setlength{\footskip}{0.1in}
+
+% Set the beginning of a LaTeX document
+\usepackage{multirow}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\graphicspath{%
+    {converted_graphics/}% inserted by PCTeX
+    {/}% inserted by PCTeX
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\begin{document}\title{Homework $1$\\ Computer Science \\ Spring 2017\\ B351}         % Enter your title between curly braces
+\author{Jonathon Cooke-Akaiwa}        % Enter your name between curly braces
+\date{\today}          % Enter your date or \today between curly braces
+\maketitle
+
+
+% Redefine "plain" pagestyle
+\makeatother     % `@' is restored as a "non-letter" character
+
+
+
+
+% Set to use the "plain" pagestyle
+\pagestyle{plain}
+All the work herein is mine.
+
+\section*{Answers}
+
+\begin{enumerate}
+\item \begin{enumerate}
+	\item we have four directions. This gives up 4 states for our robot. We can travel in a forward direction for any distance, until a wall is encountered. This gives us a single action action.  The initial state is at the center of the map.  The maze can be considered to be an nxn space.  The robot can move to essentially any point on the graph by rotating directions and moving in a forward direction, to any point until a wall is encountered.  Our environment will have $n^2$ locations with 4 possible directions being our states.
+	\item we still have four directions we can orient ourselves towards. Our states states are either at an intersection of two or more corridors, or traveling down a corridor. This reduces our states down to just the intersections times the number of states which is just our four directions.
+	\item At this point we can now ignore any actions except moving in a direction.  This reduces our state space down to just the size of the intersections.  At this point, no, we do not need to track orientation. we can simply direct the robot to move in one of four directions such as forward, backwards, left, or right rather than telling the robot to orient itself and then move. This reduces our states down to one.
+	\item \begin{enumerate}
+		\item In part b. we noted that the only place required to make a turn is at an intersection of two or more corridors.  This reduces the number of possible locations from any point down to specific points.
+		\item In part c. we changed the requirement from facing a specific direction down to moving in any of the four directions. This removes the requirement of keeping track of orientation.
+		\item Also from part c. we have stated that movement is now part of changing the robot's direction.
+		\end{enumerate}
+	\end{enumerate}
+\item def:
+\item \begin{enumerate}
+	\item G(V,E) \newline
+    $V = \{U,L,D,K,G,H,J,B,A,F,E,C,I\}$\newline
+    $E = \{\{U,L\},\{U,C\},\{L,D\},\{C,I\},\{D,F\},\{D,K\},\{F,E\},\{K,G\},\{G,J\},\{G,H\},\{J,B\},\{H,B\},\{B,A\}\}$
+    \item adj = $\{U : [L,C], L : [U,D], C : [U,I], I : [C], D : [L, F, K], F : [D,E], K: [D,G], E: [F], G: [K,J,H], J: [G,B], H: [G,B], B: [J,H,A], A: [B]\}$
+    \item A trace of a DFS of G could be: UCILDFEKGJBAH
+    \item We have 12 rooms that need to be scanned. At 4 minutes per room we have a fixed cost of 48 minutes that cannot be eliminated. This fixed cost assumes that a room does not need to be scanned more than once.  With the exception of the transition between rooms L and C, the move cost between any two rooms is 2 minutes.  The cost for the aformentioned transition from L to C is 7.  With this considered we need to then follow a path and calcuate an approximate amount if time taken to check the floor.  Let us start in room I. Following a DFS gives us the following transitions with their cumulative cost:
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Transition & Cost & total time elapsed\\
+    \hline
+    \hline
+    $I \to C$ & 2 & 2 \\
+    $C \to L$ & 7 & 9 \\
+    $D \to F$ & 2 & 11 \\
+    $F \to E$ & 2 & 13 \\
+    $E \to F$ & 2 & 15 \\
+    $F \to D$ & 2 & 17 \\
+    $D \to K$ & 2 & 19 \\
+    $K \to G$ & 2 & 21 \\
+    $G \to J$ & 2 & 23 \\
+    $J \to B$ & 2 & 25 \\
+    $B \to A$ & 2 & 27 \\
+    $A \to B$ & 2 & 29 \\
+    $B \to H$ & 2 & 31 \\
+    \hline
+    \end{tabular}
+    \end{center}
+    Taking our cost of movement as 31 minutes and adding that to our fixed cost of scanning new rooms of 48 minutes gives us a total time of 79 minutes.\newline
+    To annotate the graph to provide this information we would need to add a weight or cost to each transition that accounts for the time to move between rooms.  This weight could be used in addition to cost of scanning unique rooms to produce a total cost, similar to the steps outlined above.  Each room that was visited could be added to a set and the fixed cost calcuated from there.  When considering the transition between L and C via U we could replace this with an edge with a cost of 7 minutes.  This might be a useful change to make as we would not have to exclude node U from our calculation of room scans while also simplifying the calcuation of transitions.
+    \item Based on my estimate in the previous question it would take two batteries to fully scan the floor.  This assumes there is no travel cost associated with changing batteries; i.e. if the drone must return home to charge.
+    \item see p1.py
+	\end{enumerate}
+\item \begin{enumerate}
+	\item 
+		\begin{tabular}{|c|c|c|}
+		\hline
+		Game No & Human Win\% & Comp Win\% \\
+		\hline \hline
+		H1 & 40\% & 40\% \\
+		H2 & 20\% & 40\% \\
+		H3 & 40\% & 10\% \\
+		H4 & 60\% & 0\% \\
+		H5 & 60\% & 20\% \\
+		\hline
+		\end{tabular} \newline
+		These game results give us an expectation of 44\% for a human winning.  This did seem much lower than I expected, but I did not consider the ability to tie a game. After considering the ability for two players to tie during a game of rock paper sissors gives us a human win rate that is higher than what should have been expected. The most interesting stat was actually that the computer only beat the human in win rate once, in every other case it did equally well or worse.  The computers expected win rate is only 22\%.  
+	\item The python library random will uniformly pick an integer using its pseudo-random generator.  While it is not a truely random number that is generated, there is no bias when generating a number. In my case I tried a number of options including picking the same number, rotating through possible numbers, and also trying to pick a random number each time.  Each of these methods I used are based on the previous number selected, even my `random' selection.
+	\item The only other option I explored was having robby go second and taking the computers choice to decide his own.  This act of cheating was not in the spirit of the game and was ignored. The implimentation I went for instead was to figuratively flip a coin and if 0; go for a random choice.  Otherwise I bias towards paper.  This seems to have apporximately the same odds as throwing a completely random number.  see p2.py
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}
